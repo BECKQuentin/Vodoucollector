@@ -1,0 +1,16 @@
+/*Listing*/
+.object_exposed {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+}
+.object_exposed_true {
+    background-color: green;
+}
+.object_exposed_false {
+    background-color: darkred;
+}
+.form_description textarea{
+    min-height: calc(15em) !important;
+}
+

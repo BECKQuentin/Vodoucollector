@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="content">
+        <h2>Ajouter une Bibliographie</h2>
+
+        <div class="mx-5">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-10">{{ form_row(form.title) }}</div>
+                <div class="no_arrow col-md-2">Author self</div>
+            </div>
+            <hr>
+            <div class="row">
+                {{ form_row(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,45 @@
+<div class="navbar_objects d-flex align-items-center">
+
+    {% if route_name != 'objects_edit' %}
+        <h4 class="p-2 btn-vodou">
+            <a href="{{ path('objects_edit', {id:object.id}) }}">
+                {{ object.title }}
+            </a>
+        </h4>
+    {% else %}
+        <h4 class="p-2">
+            {{ object.title }}
+        </h4>
+    {% endif %}
+
+    {% if route_name != 'objects_media' %}
+        <a href="{{ path('objects_media', {id:object.id}) }}" class="btn btn-vodou">
+            <i class="fa-solid fa-images"></i>
+        </a>
+    {% else %}
+        <div class="p-3">
+            <i class="fa-solid fa-images"></i>
+        </div>
+    {% endif %}
+
+    {% if route_name != 'objects_video' %}
+        <a href="{{ path('objects_video', {id:object.id}) }}" class="btn btn-vodou">
+            <i class="fa-solid fa-film "></i>
+        </a>
+    {% else %}
+        <div class="p-3">
+            <i class="fa-solid fa-film"></i>
+        </div>
+    {% endif %}
+
+    {% if route_name != 'objects_file' %}
+        <a href="{{ path('objects_file', {id:object.id}) }}" class="btn btn-vodou">
+            <i class="fa-solid fa-file"></i>
+        </a>
+    {% else %}
+        <div class="p-3">
+            <i class="fa-solid fa-file"></i>
+        </div>
+    {% endif %}
+
+</div>

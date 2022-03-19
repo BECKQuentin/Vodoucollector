@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les objets{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h4 class="p-1">Resultats {{ countObjects }} objets</h4>
+
+        <div class="position-relative">
+            {% include 'search/sort_item_toolbar.html.twig' %}
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <a href=""><th scope="col">#</th></a>
+                <th scope="col">Image</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Categories</th>
+                <th scope="col">Gods</th>
+                <th scope="col">Collection</th>
+{#                <th scope="col">Description</th>#}
+                <th scope="col" class="object_exposed_column">Temporaire</th>
+                <th scope="col" class="object_exposed_column">Permanence</th>
+                <th scope="col">Armoire</th>
+                <th scope="col">Etagère</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if objects is defined and objects is not empty%}
+                {% for object in objects %}
+                    <tr>
+                        <th>
+                            <input type="checkbox" class="boxSelectObject">
+                        </th>
+                        <th scope="row">{{ object.code }}</th>
+                        <td>
+                            <div style="width: 80px !important;">
+                                <div class="img-ratio" style="--ratio:150%;">
+                                    <div class="img">
+                                        {% if loop.first %}
+                                            <img src="{{ asset('upload/defaultsImages/test1.png') }}" alt="">
+                                        {% else %}
+                                            <img src="{{ asset('upload/defaultsImages/test2.png') }}" alt="">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <th>{{ object.title }}</th>
+                        <td>{{ object.categories is same as null ? '' : object.categories.name }}</td>
+                        <td>Gods</td>
+                        <td>Collection</td>
+{#                        <td>{{ object.description|length > 50 ? object.description|slice(0, 50) ~ '...' : object.description }}</td>#}
+                        <td class="align-top">
+                            <div class="{{ object.isExposedTemp == 1 ? 'object_exposed_true' : 'object_exposed_false'}} object_exposed"></div>
+                        </td>
+                        <td class="align-top">
+                            <div class="{{ object.isExposedPerm == 1 ? 'object_exposed_true' : 'object_exposed_false'}} object_exposed"></div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td colspan="1">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <a class="btn btn-vodou" href="{{ path('objects_edit', {id:object.id}) }}" title="Editer">
+                                        <i class="fa-solid fa-pen-nib"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a class="btn btn-vodou" href="{{ path('objects_delete', {id:object.id}) }}" title="Supprimer" onclick="return confirm('Etes vous sûr de vouloir supprimer cet article ?')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+        {{ knp_pagination_render(objects) }}
+    </div>
+
+{% endblock %}

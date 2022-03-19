@@ -1,0 +1,10 @@
+#color_choice input{
+    height: 35px;
+    width: 35px !important;
+    border-radius: 50% !important;
+}
+#color_choice input[type=color]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+}

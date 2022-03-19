@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="content">
+        <h2 class="mb-5">Mes bibliographies</h2>
+
+        {% for librairy in librairies %}
+            <div class="row m-0 mb-5">
+
+                <div class="col-12
+                {% if loop.first %}
+                bg_red
+                {% endif %}
+                {% if loop.index == 2 %}
+                bg_blue
+                {% endif %}
+                m-0 py-2">
+                    <span class="mx-5">
+                        {{ librairy.title }}
+                    </span>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Auteur</th>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Ville</th>
+                            <th scope="col">Editeur</th>
+                            <th scope="col">Année</th>
+                            <th scope="col">Tome</th>
+                            <th scope="col">Pages</th>
+                            <th scope="col">Nota</th>
+                            <th scope="col">N° Prêt</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if librairy.books is defined and librairy.books is not empty%}
+                            {% for book in librairy.books %}
+                                <tr>
+                                    <th scope="row">{{ book.author }}</th>
+                                    <th>{{ book.title }}</th>
+                                    <th>{{ book.city }}</th>
+                                    <th>{{ book.editor }}</th>
+{#                                    <th>{{ book.year }}</th>#}
+                                    <th>{{ book.quantity }}</th>
+                                    <th>{{ book.pages }}</th>
+                                    <th>{{ book.notice|length > 50 ? book.notice|slice(0, 50) ~ '...' : book.notice }}</th>
+                                    <th>{{ book.rentNumber }}</th>
+                                    <th></th>
+                                    <td colspan="1">
+                                        <div class="d-flex flex-wrap">
+                                            <div>
+                                                <a class="btn btn-vodou" href="" title="Editer">
+                                                    <i class="fa-solid fa-pen-nib"></i>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a class="btn btn-vodou" href="" title="Supprimer" onclick="return confirm('Etes vous sûr de vouloir supprimer cet article ?')">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+
+
+
+{% endblock %}
