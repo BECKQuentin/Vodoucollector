@@ -77,7 +77,7 @@ class ObjectsController extends AbstractController
     }
 
     /**
-     * @Route("/objects-edit/{id}", name="objects_edit")
+     * @Route("/objects/{id}", name="objects_edit")
      *
      */
     public function editObjects(Objects $objects, Request $request): Response

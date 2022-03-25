@@ -2,10 +2,7 @@
 
 namespace App\Service;
 
-use App\Repository\Objects\ImagesRepository;
-use App\Repository\Objects\ObjectsRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class UploadService
 {
@@ -27,28 +24,30 @@ class UploadService
         return $fileName;
     }
 
-    public function createFileName(UploadedFile $images, $entity, $imagesRepository): string
+    public function createFileNameImg(UploadedFile $images, $entity, $imagesRepository): string
     {
-        $arrImages = $imagesRepository->findAllImagesByObject($entity);
+        $arrImages  = $imagesRepository->findAllImagesByObject($entity);
+        $arrCode    = [];
+        $arrLetter  = [];
+        $alphas = range('a', 'z');
 
-        dd($arrImages);
-
-        $fileNameCode = $entity->getCode().'_'.'b';
-
-        return $fileNameCode;
+        //extraire code pour toutes les images de l'objet
+        foreach ($arrImages as $imgCode) {
+            $arrCode[] = $imgCode->getCode();
+        }
+        //extraie chacune des lettre pour toutes les images de l'objet
+        foreach ($arrCode as $code) {
+            $arrLetter[] = explode('_', $code)[1];
+        }
+        //Attribuer lettre du regex si inexistante
+        foreach ($alphas as $a) {
+            $res = in_array($a, $arrLetter );
+            if ($res == false) {
+                $fileNameCode = $entity->getCode().'_'.$a;
+                return $fileNameCode;
+            }
+        }
+        return $entity->getCode().'_'.'none';
     }
-
-//    private function createFileNameRandom(UploadedFile $file): string
-//    {
-//        $slugger = new AsciiSlugger();
-//        $fileName = $slugger->slug($file->getClientOriginalName())->lower();
-//        $fileName = explode('-', $fileName);
-//        $fileName = array_slice($fileName, 0, -1);
-//        $fileName = join('-', $fileName);
-//        $fileName .= '.' . uniqid() . '.' . $file->guessExtension();
-//
-//        return $fileName;
-//    }
-
 
 }

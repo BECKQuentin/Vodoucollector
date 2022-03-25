@@ -31,7 +31,7 @@ class MediaController extends AbstractController
             if ($images) {
                 foreach ($images as $image) {
 
-                    $fileNameCode = $uploadService->createFileName($image, $objects, $imagesRepository);
+                    $fileNameCode = $uploadService->createFileNameImg($image, $objects, $imagesRepository);
                     $fileName = $uploadService->uploadImages($image, $objects, $fileNameCode);
 
                     $img = new Images();
@@ -53,6 +53,25 @@ class MediaController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/media-delete/{id}/{object}", name="delete_objects_img")
+     *
+     */
+    public function mediaDelete(Images $images, Request $request) {
+
+        $img = $request->get('img');
+        $objId = $request->get('object');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($images);
+        $em->flush();
+
+        return($this->redirectToRoute(
+            'objects_media',
+            ['id' => $objId]
+        ));
+
+    }
 
 
 

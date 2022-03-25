@@ -3,23 +3,22 @@
 {% block body %}
 
     <div class="content">
-        {% include 'objects/objects/navbar_objects.html.twig' %}
+        <div class="d-flex justify-content-between">
+            {% include 'objects/objects/navbar_objects.html.twig' %}
 
-        <div class="d-flex sort_item_toolbar px-2">
-            <div>
-                <label for="media_form_name">
-                    <span class="btn btn-vodou"><i class="fa-solid fa-plus"></i></span>
-                    <a href="" class="btn" title="Tout supprimer">
-                        <i class="fa-solid fa-dumpster"></i>
-                    </a>
-                    {{ form_start(form) }}
+            <div class="d-flex sort_item_toolbar px-2">
+                <div>
+                    <label for="media_form_name" class="d-flex">
+                        <span class="btn btn-vodou"><i class="fa-solid fa-plus"></i></span>
+                        <a href="" class="btn" title="Tout supprimer">
+                            <i class="fa-solid fa-dumpster"></i>
+                        </a>
+                        {{ form_start(form) }}
                         {{ form_row(form.name) }}
                         {{ form_row(form.submit) }}
-                    {{ form_end(form) }}
-                </label>
-            </div>
-            <div>
-
+                        {{ form_end(form) }}
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -34,7 +33,7 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <span>{{ img.code }}</span>
-                        <a href=""><i class="fa-solid fa-trash"></i></a>
+                        <a href="{{ path('delete_objects_img', {id:img.id, object:object.id}) }}" title="Supprimer"><i class="fa-solid fa-trash"></i></a>
                     </div>
                 </div>
             {% endfor %}
