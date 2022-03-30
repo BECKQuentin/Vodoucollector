@@ -44,16 +44,17 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/book-edit/{id}", name="book_edit")
+     * @Route("/book-edit/{id}", name="edit_book")
      *
      */
     public function editBook(Book $book, Request $request): Response
     {
-
         $form = $this->createForm(BookFormType::class, $book);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($book);
             $em->flush();
@@ -61,20 +62,18 @@ class BookController extends AbstractController
             $this->addFlash('success', "Les modifications ont bien été sauvegardées !");
         }
 
-        return $this->render('objects/librairies/edit.html.twig', [
-            'book'    => $book,
+        return $this->render('objects/book/add.html.twig', [
             'form'      => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/book-delete/{id}", name="book_delete")
+     * @Route("libairies/{librairy}/book-delete/{id}/", name="delete_book")
      */
-    public function deleteBook(Book $book): Response
+    public function deleteBook(Book $book, Librairies $librairy): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($book);
-        $em->flush();
+        $librairy->removeBook($book);
+        $this->getDoctrine()->getManager()->flush();
 
         $this->addFlash('danger', 'Vous avez supprimé '.$book->getTitle().' !');
         return $this->redirectToRoute('librairies');

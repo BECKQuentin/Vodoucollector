@@ -15,7 +15,8 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('className', [$this, 'getFunctions']),
             new TwigFilter('image', [$this, 'getImagesPath']),
-            new TwigFilter('creation', [$this, 'getCreation']),
+            new TwigFilter('video', [$this, 'getVideosPath']),
+            new TwigFilter('file', [$this, 'getFilesPath']),
         ];
     }
     public function getFunctions(): array
@@ -26,11 +27,15 @@ class AppExtension extends AbstractExtension
     }
     public function getImagesPath($images): string
     {
-        return 'upload/images/objects/'.$images;
+        return '/upload/images/objects/'.$images;
     }
 
-    public function getCreation($images): string
+    public function getVideosPath($videos): string
     {
-        return 'img' . '/' . 'creations' . '/' . $images;
+        return '/upload/videos/objects/'.$videos;
+    }
+    public function getFilesPath($files): string
+    {
+        return '/upload/files/objects/'.$files;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Entity\Objects;
 
 use App\Entity\Objects\Metadata\Categories;
+use App\Entity\Objects\Metadata\Files;
 use App\Entity\Objects\Metadata\Gods;
 use App\Entity\Objects\Metadata\Materials;
 use App\Entity\Objects\Metadata\Origin;
@@ -197,6 +198,16 @@ class Objects
      */
     private $state;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Videos::class, mappedBy="objects", orphanRemoval=true, cascade={"persist"})
+     */
+    private $videos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Files::class, mappedBy="objects", orphanRemoval=true, cascade={"persist"})
+     */
+    private $files;
+
     public function __construct()
     {
         $this->setUpdatedAt(new \DateTimeImmutable('now'));
@@ -205,8 +216,10 @@ class Objects
         }
         $this->images = new ArrayCollection();
 //        $this->tags = new ArrayCollection();
-$this->relatedGods = new ArrayCollection();
-$this->materials = new ArrayCollection();
+        $this->relatedGods = new ArrayCollection();
+        $this->materials = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+        $this->files = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -672,6 +685,66 @@ $this->materials = new ArrayCollection();
     public function setState(?State $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Videos>
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Videos $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setObjects($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Videos $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getObjects() === $this) {
+                $video->setObjects(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Files>
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(Files $file): self
+    {
+        if (!$this->files->contains($file)) {
+            $this->files[] = $file;
+            $file->setObjects($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(Files $file): self
+    {
+        if ($this->files->removeElement($file)) {
+            // set the owning side to null (unless already changed)
+            if ($file->getObjects() === $this) {
+                $file->setObjects(null);
+            }
+        }
 
         return $this;
     }

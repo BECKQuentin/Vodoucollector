@@ -40,4 +40,6 @@ services:
 
     App\Service\UploadService:
         arguments:
-            $uploadImageDirectory: 'upload\images\objects'
+            $uploadImagesDirectory: 'upload\images\objects'
+            $uploadVideosDirectory: 'upload\videos\objects'
+            $uploadFilesDirectory: 'upload\files\objects'

@@ -40,10 +40,10 @@ class BaseController extends AbstractController
     {
 
         if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('home');
         }
         elseif ($this->isGranted('ROLE_MEMBER')) {
-            return $this->redirectToRoute('member');
+            return $this->redirectToRoute('home');
         }
         else {
             return $this->redirectToRoute('login');

@@ -20,14 +20,16 @@ class BookFormType extends AbstractType
     {
         $builder
             ->add('librairies', EntityType::class, [
-                'class'     => Librairies::class,
-                'choice_label' => 'title',
-                'multiple'  => true,
-                'expanded'  => true,
+                'class'         => Librairies::class,
+                'label'         => 'Librairies',
+                'choice_label'  => 'title',
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => true,
             ])
             ->add('author', TextType::class, [
                 'label'     => 'Auteur',
-                'required'  => true
+                'required'  => false
             ])
             ->add('title', TextType::class, [
                 'label'     => 'Titre',

@@ -27,7 +27,7 @@
             </div>
         </li>
         <li class="nav-item dropend toolbar_dropdown">
-            <a class="nav-link dropdown-toggle {{ route_name == 'librairies' ? 'activated' or route_name == 'librairies_edit' ? 'activated' }}"
+            <a class="nav-link dropdown-toggle {{ route_name == 'librairies' ? 'activated' or route_name == 'librairy_edit' ? 'activated' }}"
                href="{{ path('librairies') }}" title="Collections"
                id="navbarDropdownCollection" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span><i class="fa-solid fa-folder-tree"></i></span>
@@ -36,7 +36,7 @@
                 <a class="dropdown-item" href="{{ path('librairies') }}">
                     <span><i class="fa-solid fa-book"></i>Bilbiographie</span>
                 </a>
-                <a class="dropdown-item" href="{{ path('librairies_add') }}">
+                <a class="dropdown-item" href="{{ path('librairy_add') }}">
                     <span><i class="fa-solid fa-plus"></i>Ajouter une bibliographie</span>
                 </a>
                 <a class="dropdown-item" href="{{ path('book_add') }}">

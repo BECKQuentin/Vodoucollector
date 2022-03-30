@@ -21,11 +21,9 @@ class ObjectsController extends AbstractController
      */
     public function listingObjects(ObjectsRepository $objectsRepository,PaginatorInterface $paginator, Request $request): Response
     {
-//        if ($tag = $request->query->get('tags')) {
-//            $objects = $objectsRepository->findByTag($tag);
-//        } else {
+
             $allObj = $objectsRepository->findAll();
-//        }
+
             $countObjects = $objectsRepository->countObjects();
             $objects = $paginator->paginate(
                 $allObj,
@@ -49,19 +47,6 @@ class ObjectsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-//           //verif de l'image
-//            $tags = $form->get('tags')->getData();
-//
-//            foreach ($tags as $tag) {
-//                $objects->addTag($tag);
-//            }
-            //recup categories du formulaire
-//            $categories = $form->getData()->getCategories();
-//            $objects->setCategories($categories);
-//            //recup categories du formulaire
-//            $origin = $form->getData()->getOrigin();
-//            $objects->setCategories($origin);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($objects);

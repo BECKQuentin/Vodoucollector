@@ -15,27 +15,20 @@
 <div class="row mb-4">
     <div class="col-md-4">
         <div id="carouselFormObjects" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            {% if object.images.count > 0 %}
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="img-ratio" style="--ratio:80%;">
-                        <div class="img">
-                            <img src="{{ asset('upload/defaultsImages/test1.png') }}" alt="">
+                    {% for img in object.images %}
+                        <div class="carousel-item {{ loop.first ? 'active' }}">
+                            <div class="img-ratio" style="--ratio:80%;">
+                                <div class="img">
+                                    <img src="{{ img.name|image }}" alt="">
+                                </div>
+                            </div>
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5 class="m-0">{{ img.code }}</h5>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="m-0">1525b</h5>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="img-ratio" style="--ratio:80%;">
-                        <div class="img">
-                            <img src="{{ asset('upload/defaultsImages/test2.png') }}" alt="">
-                        </div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5 class="m-0">1525b</h5>
-                        </div>
-                    </div>
-                </div>
+                    {% endfor %}
             </div>
             <a class="carousel-control-prev" href="#carouselFormObjects" role="button" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -45,6 +38,16 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
+            {% else %}
+                <div class="img-ratio" style="--ratio:80%;">
+                    <div class="img">
+                        <img src="{{ asset('upload/defaultsImages/cropped-logo-musee-vodou.png') }}" alt="">
+                    </div>
+                </div>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="m-0">Cette objet n'a pas d'image</h5>
+                </div>
+            {% endif %}
         </div>
     </div>
     <div class="col-md-8 form_description">

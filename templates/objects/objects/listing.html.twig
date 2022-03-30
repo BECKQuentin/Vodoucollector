@@ -20,7 +20,6 @@
                 <th scope="col">Categories</th>
                 <th scope="col">Gods</th>
                 <th scope="col">Collection</th>
-{#                <th scope="col">Description</th>#}
                 <th scope="col" class="object_exposed_column">Temporaire</th>
                 <th scope="col" class="object_exposed_column">Permanence</th>
                 <th scope="col">Armoire</th>
@@ -40,11 +39,11 @@
                             <div style="width: 80px !important;">
                                 <div class="img-ratio" style="--ratio:150%;">
                                     <div class="img">
-                                        {% if loop.first %}
-                                            <img src="{{ asset('upload/defaultsImages/test1.png') }}" alt="">
-                                        {% else %}
-                                            <img src="{{ asset('upload/defaultsImages/test2.png') }}" alt="">
-                                        {% endif %}
+                                        {% for img in object.images %}
+                                            {% if loop.first %}
+                                                <img src="{{ img.name|image }}" alt="">
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +52,6 @@
                         <td>{{ object.categories is same as null ? '' : object.categories.name }}</td>
                         <td>Gods</td>
                         <td>Collection</td>
-{#                        <td>{{ object.description|length > 50 ? object.description|slice(0, 50) ~ '...' : object.description }}</td>#}
                         <td class="align-top">
                             <div class="{{ object.isExposedTemp == 1 ? 'object_exposed_true' : 'object_exposed_false'}} object_exposed"></div>
                         </td>

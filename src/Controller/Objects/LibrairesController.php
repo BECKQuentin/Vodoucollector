@@ -25,11 +25,12 @@ class LibrairesController extends AbstractController
     }
 
     /**
-     * @Route("/librairies-add", name="librairies_add")
+     * @Route("/librairy-add", name="librairy_add")
      *
      */
-    public function addLibrairies(Request $request): Response
+    public function addLibrairy(Request $request, LibrairiesRepository $librairiesRepository): Response
     {
+        $allLibrairies = $librairiesRepository->findAll();
         $librairies = new Librairies();
         $form = $this->createForm(LibrairiesFormType::class, $librairies);
         $form->handleRequest($request);
@@ -41,48 +42,51 @@ class LibrairesController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', "L'article a bien été ajoutée");
-            return $this->redirectToRoute('librairies');
+            return $this->redirectToRoute('librairy_add');
         }
 
         return $this->render('objects/librairies/add.html.twig', [
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
+            'libraires' => $allLibrairies,
         ]);
     }
 
     /**
-     * @Route("/librairies-edit/{id}", name="librairies_edit")
+     * @Route("/librairy-edit/{id}", name="edit_librairy")
      *
      */
-    public function editLibrairies(Librairies $librairies, Request $request): Response
+    public function editLibrairy(Librairies $librairy, LibrairiesRepository $librairiesRepository, Request $request): Response
     {
-
-        $form = $this->createForm(LibrairiesFormType::class, $librairies);
+        $allLibrairies = $librairiesRepository->findAll();
+        $form = $this->createForm(LibrairiesFormType::class, $librairy);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($librairies);
+            $em->persist($librairy);
             $em->flush();
 
             $this->addFlash('success', "Les modifications ont bien été sauvegardées !");
+            return $this->redirectToRoute('librairy_add');
         }
 
-        return $this->render('objects/librairies/edit.html.twig', [
-            'librairies'    => $librairies,
-            'form'      => $form->createView(),
+        return $this->render('objects/librairies/add.html.twig', [
+            'librairy'    => $librairy,
+            'libraires'     => $allLibrairies,
+            'form'          => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/objects-delete/{id}", name="objects_delete")
+     * @Route("/librairy-delete/{id}", name="delete_librairy")
      */
-    public function deleteLibrairies(Librairies $librairies): Response
+    public function deleteLibrairies(Librairies $librairy): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($librairies);
+        $em->remove($librairy);
         $em->flush();
 
-        $this->addFlash('danger', 'Vous avez supprimé '.$librairies->getTitle().' !');
-        return $this->redirectToRoute('librairies');
+        $this->addFlash('danger', 'Vous avez supprimé '.$librairy->getTitle().' !');
+        return $this->redirectToRoute('librairy_add');
     }
 }

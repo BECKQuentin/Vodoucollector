@@ -4,11 +4,15 @@ namespace App\Form\Objects;
 
 use App\Entity\Objects\Images;
 use App\Entity\Objects\Objects;
+use App\Entity\Objects\Videos;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\ConstraintValidatorFactory;
 
 class MediaFormType extends AbstractType
 {
@@ -16,13 +20,14 @@ class MediaFormType extends AbstractType
     {
         $builder
             ->add('name', FileType::class, [
-                'label' => false,
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
-                'attr' => ['class' => 'btn'],
-                'label_attr' => ['class' => 'CUSTOM_LABEL_CLASS'],
+                'label'         => false,
+                'multiple'      => true,
+                'mapped'        => false,
+                'required'      => false,
+                'attr'          => ['class' => 'btn'],
+                'label_attr'    => ['class' => 'CUSTOM_LABEL_CLASS'],
             ])
+
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [

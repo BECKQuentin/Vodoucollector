@@ -20,7 +20,7 @@ class Book
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $author;
 
@@ -66,6 +66,7 @@ class Book
 
     /**
      * @ORM\ManyToMany(targetEntity=Librairies::class, mappedBy="book")
+     *
      */
     private $librairies;
 

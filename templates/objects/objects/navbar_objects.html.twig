@@ -12,8 +12,8 @@
         </h4>
     {% endif %}
 
-    {% if route_name != 'objects_media' %}
-        <a href="{{ path('objects_media', {id:object.id}) }}" class="btn btn-vodou">
+    {% if route_name != 'objects_medias' %}
+        <a href="{{ path('objects_medias', {id:object.id}) }}" class="btn btn-vodou">
             <i class="fa-solid fa-images"></i>
         </a>
     {% else %}
@@ -22,8 +22,8 @@
         </div>
     {% endif %}
 
-    {% if route_name != 'objects_video' %}
-        <a href="{{ path('objects_video', {id:object.id}) }}" class="btn btn-vodou">
+    {% if route_name != 'objects_videos' %}
+        <a href="{{ path('objects_videos', {id:object.id}) }}" class="btn btn-vodou">
             <i class="fa-solid fa-film "></i>
         </a>
     {% else %}
@@ -32,8 +32,8 @@
         </div>
     {% endif %}
 
-    {% if route_name != 'objects_file' %}
-        <a href="{{ path('objects_file', {id:object.id}) }}" class="btn btn-vodou">
+    {% if route_name != 'objects_files' %}
+        <a href="{{ path('objects_files', {id:object.id}) }}" class="btn btn-vodou">
             <i class="fa-solid fa-file"></i>
         </a>
     {% else %}
@@ -41,5 +41,14 @@
             <i class="fa-solid fa-file"></i>
         </div>
     {% endif %}
+
+    {% if route_name == 'objects_medias' %}
+        <div class="fs-8 m-0 p-0">( jpg, png, gif )</div>
+    {% elseif route_name == "objects_videos" %}
+        <div class="fs-8 m-0 p-0">( avi, flv, mov, webm, mp4, wmv, 3gp )</div>
+    {% elseif route_name == "objects_files" %}
+        <div class="fs-8 m-0 p-0">( pdf, xls)</div>
+    {% endif %}
+
 
 </div>
