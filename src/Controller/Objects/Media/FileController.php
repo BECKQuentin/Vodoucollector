@@ -2,7 +2,7 @@
 
 namespace App\Controller\Objects\Media;
 
-use App\Entity\Objects\Metadata\Files;
+use App\Entity\Objects\Media\Files;
 use App\Entity\Objects\Objects;
 use App\Form\Objects\MediaFormType;
 use App\Repository\Objects\FilesRepository;
@@ -47,15 +47,21 @@ class FileController extends AbstractController
                         $em->flush();
                     } else {
                         $this->addFlash('danger', 'Ceci n\'est pas un fichier valide');
-                        $this->redirectToRoute('objects_files');
+                        $this->redirectToRoute('objects_files',
+                            ['id' => $objects->getId()],
+                        );
                     }
                 }
             }
+        }
+        foreach ($objects as $object) {
+            dd($object->getFiles()->getExtension());
         }
 
         return $this->render('objects/media/file.html.twig', [
             'object'    => $objects,
             'form'      => $form->createView(),
+            'extension' => $objects->getFiles(),
         ]);
     }
 
@@ -77,24 +83,9 @@ class FileController extends AbstractController
         return($this->redirectToRoute('objects_files',
             ['id' => $objId],
         ));
-
     }
 
-//    /**
-//     * @Route("/file-dl/{id}", name="download_file")
-//     */
-//    public function downloadAction(Files $file)
-//    {
-//
-//        $response = new Response();
-//
-//        //set headers
-//        $response->headers->set('Content-Type', 'mime/type');
-//        $response->headers->set('Content-Disposition', 'attachment;filename="'.$file->getName());
-//
-//        $response->setContent($file->getAbsolutePath());
-//        return $response;
-//    }
+
 
 
 

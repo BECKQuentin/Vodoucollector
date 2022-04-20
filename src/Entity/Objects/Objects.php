@@ -2,9 +2,13 @@
 
 namespace App\Entity\Objects;
 
+use App\Entity\Objects\Media\Files;
+use App\Entity\Objects\Media\Videos;
+use App\Entity\Objects\Media\Youtube;
 use App\Entity\Objects\Metadata\Categories;
-use App\Entity\Objects\Metadata\Files;
+use App\Entity\Objects\Metadata\Floor;
 use App\Entity\Objects\Metadata\Gods;
+use App\Entity\Objects\Metadata\Images;
 use App\Entity\Objects\Metadata\Materials;
 use App\Entity\Objects\Metadata\Origin;
 use App\Entity\Objects\Metadata\Population;
@@ -129,6 +133,11 @@ class Objects
     private $isExposedPerm;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Floor::class, inversedBy="objects")
+     */
+    private $floor;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $showcaseCode;
@@ -208,6 +217,11 @@ class Objects
      */
     private $files;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Youtube::class, mappedBy="objects")
+     */
+    private $youtubes;
+
     public function __construct()
     {
         $this->setUpdatedAt(new \DateTimeImmutable('now'));
@@ -220,6 +234,7 @@ class Objects
         $this->materials = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->youtubes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -497,6 +512,18 @@ class Objects
         return $this;
     }
 
+    public function getFloor(): ?Floor
+    {
+        return $this->floor;
+    }
+
+    public function setFloor(?Floor $floor): self
+    {
+        $this->floor = $floor;
+
+        return $this;
+    }
+
     public function getShowcaseCode(): ?string
     {
         return $this->showcaseCode;
@@ -743,6 +770,36 @@ class Objects
             // set the owning side to null (unless already changed)
             if ($file->getObjects() === $this) {
                 $file->setObjects(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Youtube>
+     */
+    public function getYoutubes(): Collection
+    {
+        return $this->youtubes;
+    }
+
+    public function addYoutube(Youtube $youtube): self
+    {
+        if (!$this->youtubes->contains($youtube)) {
+            $this->youtubes[] = $youtube;
+            $youtube->setObjects($this);
+        }
+
+        return $this;
+    }
+
+    public function removeYoutube(Youtube $youtube): self
+    {
+        if ($this->youtubes->removeElement($youtube)) {
+            // set the owning side to null (unless already changed)
+            if ($youtube->getObjects() === $this) {
+                $youtube->setObjects(null);
             }
         }
 

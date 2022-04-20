@@ -17,6 +17,42 @@ class UploadService
         $this->uploadFilesDirectory = $uploadFilesDirectory;
     }
 
+    public function isImage($file): bool
+    {
+        $extension = $file->getClientOriginalExtension();
+        $arrVideoExtension  = ['jpeg', 'jpg', 'gif', 'png', 'bmp'];
+
+        if(in_array(strtolower($extension), $arrVideoExtension))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function isVideo($file): bool
+    {
+        $extension = $file->getClientOriginalExtension();
+        $arrVideoExtension  = ['mov', 'mp4', 'avi', 'wmv', 'flv', '3gp', 'webm'];
+
+        if(in_array(strtolower($extension), $arrVideoExtension))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function isFile($file): bool
+    {
+        $extension = $file->getClientOriginalExtension();
+        $arrVideoExtension  = ['pdf', 'xls', 'xlsx'];
+
+        if(in_array(strtolower($extension), $arrVideoExtension))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public function upload(UploadedFile $file, $entity, $fileNameCode): string
     {
 
@@ -126,38 +162,6 @@ class UploadService
 //        return false;
 //    }
 
-    public function isImage($file): bool
-    {
-        $extension = $file->getClientOriginalExtension();
-        $arrVideoExtension  = ['jpeg', 'jpg', 'gif', 'png', 'bmp'];
 
-        if(in_array(strtolower($extension), $arrVideoExtension))
-        {
-            return true;
-        }
-        return false;
-    }
-    public function isVideo($file): bool
-    {
-        $extension = $file->getClientOriginalExtension();
-        $arrVideoExtension  = ['mov', 'mp4', 'avi', 'wmv', 'flv', '3gp', 'webm'];
-
-        if(in_array(strtolower($extension), $arrVideoExtension))
-        {
-            return true;
-        }
-        return false;
-    }
-    public function isFile($file): bool
-    {
-        $extension = $file->getClientOriginalExtension();
-        $arrVideoExtension  = ['pdf', 'xls'];
-
-        if(in_array(strtolower($extension), $arrVideoExtension))
-        {
-            return true;
-        }
-        return false;
-    }
 
 }

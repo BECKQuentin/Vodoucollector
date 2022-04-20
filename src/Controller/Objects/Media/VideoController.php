@@ -2,8 +2,8 @@
 
 namespace App\Controller\Objects\Media;
 
+use App\Entity\Objects\Media\Videos;
 use App\Entity\Objects\Objects;
-use App\Entity\Objects\Videos;
 use App\Form\Objects\MediaFormType;
 use App\Repository\Objects\VideosRepository;
 use App\Service\UploadService;
@@ -46,7 +46,8 @@ class VideoController extends AbstractController
                         $em->flush();
                     } else {
                         $this->addFlash('danger', 'Ceci n\'est pas une vidéo valide');
-                        $this->redirectToRoute('objects_files');
+                        $this->redirectToRoute('objects_files',
+                        ['id' => $objects->getId()]);
                     }
                 }
             }

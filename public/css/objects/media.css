@@ -35,3 +35,13 @@
     flex-direction: column;
     justify-content: space-between;
 }
+/*Youtube*/
+.card_youtube {
+    border: 1px solid var(--main);
+    border-radius: 2px;
+    width: 560px;
+    height: 315px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

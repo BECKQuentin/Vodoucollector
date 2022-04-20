@@ -2,7 +2,7 @@
 
 namespace App\Controller\Objects\Media;
 
-use App\Entity\Objects\Images;
+use App\Entity\Objects\Metadata\Images;
 use App\Entity\Objects\Objects;
 use App\Form\Objects\MediaFormType;
 use App\Repository\Objects\ImagesRepository;
@@ -47,7 +47,8 @@ class MediaController extends AbstractController
                         $em->flush();
                     } else {
                         $this->addFlash('danger', 'Ceci n\'est pas une image valide');
-                        $this->redirectToRoute('objects_medias');
+                        $this->redirectToRoute('objects_medias',
+                        ['id' => $objects->getId()]);
                     }
                 }
             }
@@ -80,25 +81,25 @@ class MediaController extends AbstractController
 
     }
 
-    /**
-     * @Route("/media-delete-all/{id}", name="delete_objects_all_img")
-     *
-     */
-    public function mediaDeleteAll(Objects $object, Request $request) {
-
-
-        $em = $this->getDoctrine()->getManager();
-        if($object->getImages()) {
-            foreach ($object->getImages() as $img) {
-                $em->remove($img);
-
-            }
-        }
-        $em->flush();
-
-        return($this->redirectToRoute('objects_medias',
-            ['id' => $object->getId()]
-        ));
-    }
+//    /**
+//     * @Route("/media-delete-all/{id}", name="delete_objects_all_img")
+//     *
+//     */
+//    public function mediaDeleteAll(Objects $object, Request $request) {
+//
+//
+//        $em = $this->getDoctrine()->getManager();
+//        if($object->getImages()) {
+//            foreach ($object->getImages() as $img) {
+//                $em->remove($img);
+//
+//            }
+//        }
+//        $em->flush();
+//
+//        return($this->redirectToRoute('objects_medias',
+//            ['id' => $object->getId()]
+//        ));
+//    }
 
 }

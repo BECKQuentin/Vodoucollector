@@ -15,7 +15,7 @@
 <div class="row mb-4">
     <div class="col-md-4">
         <div id="carouselFormObjects" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-            {% if object.images.count > 0 %}
+            {% if object is defined and object.images.count > 0 %}
             <div class="carousel-inner">
                     {% for img in object.images %}
                         <div class="carousel-item {{ loop.first ? 'active' }}">
@@ -84,16 +84,27 @@
     <div class="col-md-2 pt-4">
         {{ form_row(form.isBasemented) }}
         {{ form_row(form.isRent) }}
-        {{ form_row(form.isExposedTemp) }}
-        {{ form_row(form.isExposedPerm) }}
     </div>
+</div>
+<div class="row mb-2">
+    <div class="d-flex justify-content-center align-items-end">
+        <div id="form_checkbox_exposed" class="col-md-2">
+            <div id="isExposedTemp" class="p-1">{{ form_row(form.isExposedTemp) }}</div>
+            <div id="isExposedPerm" class="p-1">{{ form_row(form.isExposedPerm) }}</div>
+        </div>
+        <div id="form_floor" class="col-md-3 p-1">{{ form_row(form.floor) }}</div>
+        <div id="form_showCaseCode" class="col-md-3 p-1">{{ form_row(form.showCaseCode) }}</div>
+        <div id="form_shelf" class="col-md-3 p-1">{{ form_row(form.shelf) }}</div>
+    </div>
+</div>
+<div class="row mb-2">
 </div>
 {#            <div class="row">#}
 {#                <div class="col-md-2">{{ form_row(form.era) }}</div>#}
 {#            </div>#}
-<div class="col-md-2">{{ form_rest(form) }}</div>
 <hr>
-{#            <div class="row">#}
-{#                {{ form_row(form.submit) }}#}
-{#            </div>#}
+<div class="row">
+    {{ form_row(form.submit) }}
+</div>
+{#<div class="col-md-2">{{ form_rest(form) }}</div>#}
             {{ form_end(form) }}

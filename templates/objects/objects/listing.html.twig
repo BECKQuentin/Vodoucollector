@@ -20,10 +20,9 @@
                 <th scope="col">Categories</th>
                 <th scope="col">Gods</th>
                 <th scope="col">Collection</th>
-                <th scope="col" class="object_exposed_column">Temporaire</th>
-                <th scope="col" class="object_exposed_column">Permanence</th>
-                <th scope="col">Armoire</th>
-                <th scope="col">Etagère</th>
+                <th scope="col" class="object_exposed_column">Temp</th>
+                <th scope="col" class="object_exposed_column">Perm</th>
+                <th scope="col">Emplacement</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -50,7 +49,7 @@
                         </td>
                         <th>{{ object.title }}</th>
                         <td>{{ object.categories is same as null ? '' : object.categories.name }}</td>
-                        <td>Gods</td>
+                        <td>{{ object.gods is same as null ? '' : object.gods.name }}</td>
                         <td>Collection</td>
                         <td class="align-top">
                             <div class="{{ object.isExposedTemp == 1 ? 'object_exposed_true' : 'object_exposed_false'}} object_exposed"></div>
@@ -58,8 +57,15 @@
                         <td class="align-top">
                             <div class="{{ object.isExposedPerm == 1 ? 'object_exposed_true' : 'object_exposed_false'}} object_exposed"></div>
                         </td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            {% if object.floor %}
+                                {{ object.floor.name }}
+                            {% else %}
+                                {{ object.showCaseCode }} - {{ object.shelf }}
+                            {% endif %}
+
+                        </td>
+
                         <td colspan="1">
                             <div class="d-flex flex-wrap">
                                 <div>

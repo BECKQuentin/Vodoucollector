@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Entity\Objects;
+namespace App\Entity\Objects\Metadata;
 
+use App\Entity\Objects\Objects;
 use App\Repository\Objects\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
 

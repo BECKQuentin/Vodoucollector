@@ -32,6 +32,16 @@
         </div>
     {% endif %}
 
+    {% if route_name != 'objects_youtube' %}
+        <a href="{{ path('objects_youtube', {id:object.id}) }}" class="btn btn-vodou">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+    {% else %}
+        <div class="p-3">
+            <i class="fa-brands fa-youtube"></i>
+        </div>
+    {% endif %}
+
     {% if route_name != 'objects_files' %}
         <a href="{{ path('objects_files', {id:object.id}) }}" class="btn btn-vodou">
             <i class="fa-solid fa-file"></i>
@@ -47,7 +57,9 @@
     {% elseif route_name == "objects_videos" %}
         <div class="fs-8 m-0 p-0">( avi, flv, mov, webm, mp4, wmv, 3gp )</div>
     {% elseif route_name == "objects_files" %}
-        <div class="fs-8 m-0 p-0">( pdf, xls)</div>
+        <div class="fs-8 m-0 p-0">( pdf, xls )</div>
+    {% elseif route_name == "objects_youtube" %}
+        <div class="fs-8 m-0 p-0">( lien youtube )</div>
     {% endif %}
 
 

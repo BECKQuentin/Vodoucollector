@@ -5,8 +5,6 @@ namespace App\Controller\Objects;
 use App\Entity\Objects\Objects;
 use App\Form\Objects\ObjectsFormType;
 use App\Repository\Objects\ObjectsRepository;
-use App\Repository\Objects\TagsRepository;
-use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

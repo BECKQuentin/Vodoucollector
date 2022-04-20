@@ -3,6 +3,7 @@
 namespace App\Form\Objects;
 
 use App\Entity\Objects\Metadata\Categories;
+use App\Entity\Objects\Metadata\Floor;
 use App\Entity\Objects\Metadata\Gods;
 use App\Entity\Objects\Metadata\Materials;
 use App\Entity\Objects\Metadata\Origin;
@@ -156,6 +157,20 @@ class ObjectsFormType extends AbstractType
             ->add('remarks', TextareaType::class, [
                 'label'         => 'Remarques',
                 'required'      => false
+            ])
+            ->add('floor', EntityType::class, [
+                'class'         => Floor::class,
+                'label'         => 'Etage',
+                'choice_label'  => 'name',
+                'required'      => false,
+            ])
+            ->add('showCaseCode', TextType::class, [
+                'label'         => 'Numéro de vitrine',
+                'required'      => false,
+            ])
+            ->add('shelf', TextType::class, [
+                'label'         => 'Etagère',
+                'required'      => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
